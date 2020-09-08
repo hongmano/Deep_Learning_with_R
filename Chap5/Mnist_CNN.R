@@ -39,7 +39,7 @@ model %>% compile(
   
 )
 
-
+model
 # 5. Fit ------------------------------------------------------------------
 
 history <- model %>% fit(train_images,
