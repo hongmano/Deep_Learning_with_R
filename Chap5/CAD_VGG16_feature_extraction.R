@@ -188,6 +188,15 @@ model3 <- keras_model_sequential() %>%
   layer_dense(units = 256, activation = 'relu') %>% 
   layer_dense(units = 1, activation = 'sigmoid')
 
+model3 %>% compile(
+  
+  loss = loss_binary_crossentropy,
+  optimizer = optimizer_rmsprop(lr = 1e-5),
+  metrics = metric_binary_accuracy
+  
+)
+
+
 # UnFreeze
 
 cat('Trainable weights before freezing : ', length(model3$trainable_weights))
@@ -218,6 +227,6 @@ test_generator <- flow_images_from_directory(
   
   )
 
-model1 %>% 
-model2 %>% 
+model1 %>% evaluate(test$features, test$labels)
+model2 %>% evaluate_generator(test_generator, steps = 50)
 model3 %>% evaluate_generator(test_generator, steps = 50)
